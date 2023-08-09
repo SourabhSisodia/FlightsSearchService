@@ -3,12 +3,17 @@ const bodyParser = require("body-parser");
 const { ServerConfig } = require("./config");
 const apiRoutes = require("./routes");
 
-const app = express();
+const setupAndStartServer = async () => {
+  const app = express();
 
-app.listen(ServerConfig.PORT, () => {
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use("/api", apiRoutes);
+  app.listen(ServerConfig.PORT, () => {
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use("/api", apiRoutes);
 
-  console.log(`Successfully started the server on PORT : ${ServerConfig.PORT}`);
-});
+    console.log(
+      `Successfully started the server on PORT : ${ServerConfig.PORT}`
+    );
+  });
+};
+setupAndStartServer();
