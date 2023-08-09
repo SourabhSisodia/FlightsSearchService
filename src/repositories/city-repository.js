@@ -1,35 +1,34 @@
-const {City} = require("../models/index.js");
+const { City } = require("../models/index.js");
 
-class CityRepository{
-
-  async createCity({name}){
+class CityRepository {
+  async createCity({ name }) {
     try {
-      const city  = await City.create({name});
+      const city = await City.create({ name });
       return city;
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-  async updateCity(cityId,data){
+  async updateCity(cityId, data) {
     try {
-      await City.update(data,{
-        where:{
-          id:cityId
+      await City.update(data, {
+        where: {
+          id: cityId,
         },
-        returning:true
-      })
+        returning: true,
+      });
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-  async deleteCity(cityId){
+  async deleteCity(cityId) {
     try {
       await City.destroy({
-        where:{
-          id:cityId
-        }
+        where: {
+          id: cityId,
+        },
       });
       return true;
     } catch (error) {
@@ -37,14 +36,23 @@ class CityRepository{
       throw error;
     }
   }
-  async getCity(cityId){
+  async getCity(cityId) {
     try {
       const city = await City.findByPk(cityId);
-      return city === null ? console.log("not found"):city;
+      return city;
     } catch (error) {
       console.log(error);
       throw error;
     }
-
+  }
+  async getAllCities() {
+    try {
+      const cities = await City.findAll();
+      return cities;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 }
+module.exports = CityRepository;
